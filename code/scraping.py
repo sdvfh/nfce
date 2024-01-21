@@ -1,15 +1,8 @@
-from pathlib import Path
-
 import requests
 import xmltodict
 from pymongo import MongoClient
+from utils import mongo_uri, path
 
-path = {"root": Path(__file__).parent.parent.resolve()}
-path["data"] = path["root"] / "data"
-credential = (path["data"] / "credential.txt").read_text().splitlines()
-mongo_uri = "mongodb+srv://{0}:{1}@{2}/{3}?retryWrites=true&w=majority".format(
-    *credential
-)
 client = MongoClient(mongo_uri)
 db = client["nfce"]
 collection = db["raw"]
