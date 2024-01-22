@@ -7,7 +7,7 @@ client = MongoClient(mongo_uri)
 db = client["nfce"]
 collection = db["raw"]
 
-entries = (path["files"] / "inputs.txt").read_text().splitlines()
+entries = (path["data"] / "inputs.txt").read_text().splitlines()
 
 for entry in entries:
     if "chNFe" in entry:
@@ -25,5 +25,5 @@ for entry in entries:
     db_response = collection.replace_one({"requisicao": uri}, dict_data, upsert=True)
     print(db_response.raw_result)
 
-with open(path["files"] / "inputs.txt", "w") as file:
+with open(path["data"] / "inputs.txt", "w") as file:
     file.truncate(0)
